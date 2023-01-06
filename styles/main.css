@@ -1,0 +1,31 @@
+[v-cloak] {
+    display: none;
+}
+
+.day {
+    width: 80%;
+    margin: auto;
+}
+
+.day__date {
+    text-align: center;
+}
+
+.add-task__input {
+    display: block;
+}
+.day__add-task {
+    text-align: center;
+    margin-bottom: 50px;
+
+}
+.tasks__table {
+    width:60%;
+}
+.tasks__done {
+    color:rgb(172, 172, 172)
+}
+
+td {
+    border: 1px solid black;
+}

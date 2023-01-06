@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/main.css">
+    <title>ToDo List</title>
+</head>
+<body>
+    <div v-cloak id="app">
+        <div class="day">
+            <h1 class="day__date">{{ date }}</h1>
+            <div class="day__add-task add-task">
+                <form class="add-task__form">
+                    <label class="add-task__input">
+                        Название;
+                        <input type="text" v-model="new_task.name">
+                    </label>
+                    <label class="add-task__input">
+                        Тип:
+                        <select v-model="new_task.type">
+                            <option v-for="item in types" :value="item">{{item}}</option>
+                        </select>
+                    </label>
+                    <label class="add-task__input">
+                        Длительность:
+                        <input type="number" v-model.numeric="new_task.duration">
+                    </label>
+                    <div class="add-task__input">
+                        Приоритет:
+                        <label class="add-task__input">
+                            Высокий
+                            <input type="radio" v-model="new_task.prio" name="prio" :value="true">
+                        </label>
+                        <label class="add-task__input">
+                            Низкий
+                            <input type="radio" v-model="new_task.prio" name="prio" :value="false">
+                        </label>
+                    </div>
+                </form>
+                
+                <button @click="clearForm" class="add-task__button">
+                    Отмена
+                </button>
+                <button @click="addTask" class="add-task__button">
+                    Добавить задачу
+                </button>
+            </div>
+            <div class="day__tasks tasks">
+                <table class="tasks__table" id="tasks-table">
+                    <template v-for="task in tasks">
+                        <tr class="tasks__tr" v-if="!task.isDone">
+                            <td class="tasks__td">
+                                <span class="tasks__prio" v-if="task.prio">*</span>
+                            </td>
+                            <td class="tasks__td">{{ task.name }}</td>
+                            <td class="tasks__td">{{ task.type }}</td>
+                            <td class="tasks__td">{{ task.duration }}</td>
+                            <td class="tasks__td">
+                                <input type="checkbox" v-model="task.isDone">
+                            </td>
+                            <td class="tasks__td">
+                                <button @click="editTask" :taskId="task.taskId"> ... </button>
+                            </td>
+                        </tr>
+                    </template>
+                    <tr>
+                        <td class="tasks__duration" v-for="i in 3"></td>
+                        <td class="tasks__duration">Длительность: {{duration}}</td>
+                        <td class="tasks__duration" v-for="i in 2"></td>
+                        
+                    </tr>
+                </table>
+                <hr>
+                <table class="tasks__table tasks__done" id="tasks-table">
+                    <template v-for="task in tasks">
+                        <tr class="tasks__tr" v-if="task.isDone">
+                            <td class="tasks__td">
+                                <span class="tasks__prio" v-if="task.prio">*</span>
+                            </td>
+                            <td class="tasks__td">{{ task.name }}</td>
+                            <td class="tasks__td">{{ task.type }}</td>
+                            <td class="tasks__td">{{ task.duration }}</td>
+                            <td class="tasks__td">
+                                <input type="checkbox" v-model="task.isDone">
+                            </td>
+                        </tr>
+                    </template>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/x-template" id="rand_tr">
+        
+    </script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
