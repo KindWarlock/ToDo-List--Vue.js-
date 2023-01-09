@@ -75,10 +75,9 @@ const app = Vue.createApp({
                     this.new_task.name = this.tasks[i].name;
                     this.new_task.type = this.tasks[i].type;
                     this.new_task.duration = this.tasks[i].duration;
-                    this.new_task.isDone = this.tasks[i].idDone;
+                    this.new_task.isDone = this.tasks[i].isDone;
                 }
             }            
-            console.log(this.new_task)
         }, 
         clearForm() {
             this.new_task.taskId = undefined;
