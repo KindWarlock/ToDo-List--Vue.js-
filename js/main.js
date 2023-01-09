@@ -8,22 +8,6 @@ const app = Vue.createApp({
                 'Работа'
             ],
             tasks: [
-                {
-                    taskId: 0,
-                    prio: true,
-                    name: 'Вышивка',
-                    type: 'Хобби',
-                    duration: 10,
-                    isDone: false
-                },
-                {
-                    taskId: 1,
-                    prio: false,
-                    name: 'Лежать',
-                    type: 'Отдых',
-                    duration: 10,
-                    isDone: false
-                },
             ],
             new_task: {
                 taskId: undefined,
@@ -90,6 +74,8 @@ const app = Vue.createApp({
             }
 
             let new_task = JSON.parse(JSON.stringify(this.new_task));
+            localStorage.setItem(String(new_task.taskId), JSON.stringify(new_task));
+            localStorage.setItem('taskId', String(this.taskId));
             this.tasks.push(new_task);
             this.clearForm();
         },
@@ -112,9 +98,21 @@ const app = Vue.createApp({
             this.new_task.type = 'Хобби';
             this.new_task.duration = 0;
             this.new_task.isDone = '';
+        },
+        clearStorage() {
+            localStorage.clear();
+        }
+    },
+    mounted() {
+        let keys = Object.keys(localStorage);
+        for(let key of keys) {
+            if (key == 'taskId') {
+                this.taskId = parseInt(localStorage.getItem(key));
+                continue;
+            }
+            this.tasks.push(JSON.parse(localStorage.getItem(key)));
         }
     }
 })
 
 const vm = app.mount('#app')
-  
