@@ -11,7 +11,7 @@
 <body>
     <div v-cloak id="app">
         <div class="day w-75 m-auto pt-3">
-            <h1 class="day__date mt-2 mb-3">{{ date }}</h1>
+            <h1 class="day__date mt-2 mb-3 text-center">{{ date }}</h1>
             <div class="day__add-task add-task border row">
                 <div class="col"></div>
                 <form @submit.prevent="submit" class="add-task__form py-5 col-5">
@@ -19,7 +19,8 @@
                     <div class="form-group my-3">
                         <label class="add-task__input w-100">
                             Название
-                            <input type="text" class="form-control" v-model="new_task.name">
+                            <input type="text" class="form-control" v-model="new_task.name" :class="{'border-danger': !errors['name']}">
+                            <span class="text-danger small" v-if="!errors['name']">Пожалуйста, заполните это поле</span>
                         </label>    
                     </div>
                     <div class="form-group my-3">
@@ -33,7 +34,8 @@
                     <div class="form-group my-3">
                         <label class="add-task__input w-100">
                             Длительность (мин.)
-                            <input type="number" v-model.numeric="new_task.duration" class="form-control">
+                            <input type="number" v-model.numeric="new_task.duration" class="form-control" :class="{'border-danger': !errors['duration']}">
+                            <span class="text-danger small" v-if="!errors['duration']">Некорректное значение</span>
                         </label>    
                     </div>
                     <div class="form-group text-center my-3">
@@ -56,7 +58,7 @@
                             Отмена
                         </button>
                         <button @click="addTask" class="add-task__button btn btn-primary mt-1">
-                            <span v-if="new_task.name == ''"> Добавить задачу </span>
+                            <span v-if="new_task.taskId === undefined"> Добавить задачу </span>
                             <span v-else> Редактировать задачу </span>
                         </button>    
                     </div>

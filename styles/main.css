@@ -1,18 +1,3 @@
 [v-cloak] {
     display: none;
 }
-
-
-.day__date {
-    text-align: center;
-}
-
-.add-task__input {
-    display: block;
-}
-.day__add-task {
-    margin-bottom: 50px;
-}
-.tasks__done {
-    color:rgb(172, 172, 172)
-}

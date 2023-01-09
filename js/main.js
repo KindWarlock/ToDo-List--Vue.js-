@@ -29,9 +29,13 @@ const app = Vue.createApp({
                 taskId: undefined,
                 prio: false,
                 name: '',
-                type: '',
+                type: 'Хобби',
                 duration: 0,
                 isDone: false
+            },
+            errors: {
+                'name' : true,
+                'duration' : true
             }
         }
     },
@@ -52,7 +56,29 @@ const app = Vue.createApp({
         }
     },
     methods: {
+        validate() {
+            if (this.new_task.name.trim() === '') {
+                this.errors['name'] = false;
+            } else {
+                this.errors['name'] = true;
+            }
+            if ( !(this.new_task.duration >= '0' && this.new_task.duration <= '9') ||
+                this.new_task.duration < 0) {
+                this.errors['duration'] = false;
+            } else {
+                this.errors['duration'] = true;
+            }
+            for (let key in this.errors){
+                if (!this.errors[key]) {
+                    return false;
+                }
+            }
+            return true;
+        },
         addTask() {
+            if (!this.validate()) {
+                return;
+            }
             if (this.new_task.taskId !== undefined) {                
                 for (let i = 0; i < this.tasks.length; i++) {
                     if (this.tasks[i].taskId == this.new_task.taskId) {
@@ -83,7 +109,7 @@ const app = Vue.createApp({
             this.new_task.taskId = undefined;
             this.new_task.prio = false;
             this.new_task.name = '';
-            this.new_task.type = '';
+            this.new_task.type = 'Хобби';
             this.new_task.duration = 0;
             this.new_task.isDone = '';
         }
