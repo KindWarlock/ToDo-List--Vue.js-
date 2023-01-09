@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group my-3">
                         <label class="add-task__input w-100">
-                            Длительность
+                            Длительность (мин.)
                             <input type="number" v-model.numeric="new_task.duration" class="form-control">
                         </label>    
                     </div>
@@ -65,60 +65,60 @@
             
             </div>
             <div class="day__tasks tasks">
-                <table class="tasks__table table" id="tasks-table">
+                <table class="tasks__table table table-bordered table-hover" id="tasks-table">
                     <tr scope="row" class="tasks__tr">
-                        <th></th>
-                        <th>Название</th>
-                        <th>Тип</th>
-                        <th>Длительность (мин.)</th>
-                        <th>Выполнено</th>
-                        <th></th>
+                        <th scope="col" class="text-center" style="width: 5%"></th>
+                        <th scope="col" class="text-right" style="width: 35%">Название</th>
+                        <th scope="col" class="text-right" style="width: 20%">Тип</th>
+                        <th scope="col" class="text-right" style="width: 22%">Длительность (мин.)</th>
+                        <th scope="col" class="text-right" style="width: 3%">Выполнено</th>
+                        <th scope="col" class="text-center" style="width: 10%"></th>
                     </tr>
                     <template v-for="task in tasks">
                         <tr scope="row" class="tasks__tr" v-if="!task.isDone">
-                            <td class="tasks__td">
-                                <span class="tasks__prio" v-if="task.prio">*</span>
+                            <td class="text-center">
+                                <span class="text-danger" v-if="task.prio">*</span>
                             </td>
-                            <td class="tasks__td">{{ task.name }}</td>
-                            <td class="tasks__td">{{ task.type }}</td>
-                            <td class="tasks__td">{{ task.duration }}</td>
-                            <td class="tasks__td">
+                            <td class="text-right">{{ task.name }}</td>
+                            <td class="text-right">{{ task.type }}</td>
+                            <td class="text-right">{{ task.duration }}</td>
+                            <td class="text-right">
                                 <input type="checkbox" v-model="task.isDone">
                             </td>
-                            <td class="tasks__td">
+                            <td class="text-center">
                                 <button @click="editTask" :taskId="task.taskId" class="btn btn-outline-primary btn-sm"> Ред. </button>
                             </td>
                         </tr>
                     </template>
                     <tr>
                         <td class="tasks__duration" v-for="i in 3"></td>
-                        <td class="tasks__duration">Общая длительность: {{duration}}</td>
+                        <td class="tasks__duration text-right">Итого: {{duration}}</td>
                         <td class="tasks__duration" v-for="i in 2"></td>
                         
                     </tr>
                 </table>
                 <hr>
-                <table class="tasks__table tasks__done table" id="tasks-table">
+                <table class="tasks__table text-secondary table table-bordered table-hover" id="tasks-table">
                     <tr scope="row" class="tasks__tr">
-                        <th></th>
-                        <th>Название</th>
-                        <th>Тип</th>
-                        <th>Длительность (мин.)</th>
-                        <th>Выполнено</th>
-                        <th></th>
+                        <th scope="col" class="text-center" style="width: 5%"></th>
+                        <th scope="col" class="text-right" style="width: 35%">Название</th>
+                        <th scope="col" class="text-right" style="width: 20%">Тип</th>
+                        <th scope="col" class="text-right" style="width: 22%">Длительность (мин.)</th>
+                        <th scope="col" class="text-right" style="width: 3%">Выполнено</th>
+                        <th scope="col" class="text-center" style="width: 10%"></th>
                     </tr>
                     <template v-for="task in tasks">
                         <tr class="tasks__tr" v-if="task.isDone">
-                            <td class="tasks__td">
-                                <span class="tasks__prio" v-if="task.prio">*</span>
+                            <td class="text-center">
+                                <span v-if="task.prio">*</span>
                             </td>
-                            <td class="tasks__td">{{ task.name }}</td>
-                            <td class="tasks__td">{{ task.type }}</td>
-                            <td class="tasks__td">{{ task.duration }}</td>
-                            <td class="tasks__td">
+                            <td class="text-right">{{ task.name }}</td>
+                            <td class="text-right">{{ task.type }}</td>
+                            <td class="text-right">{{ task.duration }}</td>
+                            <td class="text-right">
                                 <input type="checkbox" v-model="task.isDone">
                             </td>
-                            <td class="tasks__td">
+                            <td class="text-center">
                                 <button @click="editTask" :taskId="task.taskId" class="btn btn-outline-primary btn-sm"> Ред. </button>
                             </td>                            
                         </tr>
